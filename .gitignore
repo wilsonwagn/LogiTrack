@@ -1,0 +1,64 @@
+# ============================================================
+#  LogiTrack Pro — .gitignore
+# ============================================================
+
+# ── Java / Maven ────────────────────────────────────────────
+BACKEND/target/
+BACKEND/.mvn/wrapper/maven-wrapper.jar
+!BACKEND/.mvn/wrapper/maven-wrapper.properties
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+
+# ── Spring Boot ─────────────────────────────────────────────
+BACKEND/src/main/resources/application-local.yml
+BACKEND/src/main/resources/application-secret.yml
+
+# ── Node / React / Vite ─────────────────────────────────────
+FRONTEND/node_modules/
+FRONTEND/dist/
+FRONTEND/.vite/
+FRONTEND/.env
+FRONTEND/.env.local
+FRONTEND/.env.production
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ── Docker ──────────────────────────────────────────────────
+docker-compose.override.yml
+
+# ── IDEs ────────────────────────────────────────────────────
+.idea/
+*.iml
+*.iws
+.vscode/
+*.suo
+*.user
+.settings/
+.classpath
+.project
+
+# ── Sistemas Operacionais ───────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ── Logs e temporários ──────────────────────────────────────
+*.log
+*.tmp
+*.bak
+*.swp
+.cache/
+
+# ── Variáveis de ambiente e segredos ────────────────────────
+.env
+*.env
+secrets.yml
+secrets.yaml
