@@ -27,18 +27,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
+        // 1️⃣ Em TODA requisição que o front-end faz, o Spring passa por aqui!
+        // Ele tenta puxar o texto "Bearer eyJhb..." que veio no cabeçalho.
         String token = extractToken(request);
 
+        // 2️⃣ Se existir um token E a assinatura for válida
         if (StringUtils.hasText(token) && jwtUtil.validateToken(token)) {
+            // A gente extrai quem é a pessoa daquele token (ex: wilson)
             String username = jwtUtil.getUsernameFromToken(token);
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
+            // 3️⃣ Dependendo do resultado, libera o acesso!
             UsernamePasswordAuthenticationToken auth =
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(auth);
         }
 
+        // 4️⃣ Libera a catraca pra ele seguir a vida indo até o Controller verdadeiro.
+        // Se a requisição era protegida e ele não fez o passo 3, o Spring dá Erro 401 automático.
         filterChain.doFilter(request, response);
     }
 

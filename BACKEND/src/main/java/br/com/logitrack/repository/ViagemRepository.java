@@ -11,7 +11,9 @@ import java.util.List;
 @Repository
 public interface ViagemRepository extends JpaRepository<Viagem, Long> {
 
-    // Métrica 1 – Total KM de toda a frota
+    //TODO | COALESCE: Se a soma for nula (ex: não tem viagens), retorna 0 em vez de NULL.
+
+    // Métrica 1 – Total KM de toda a frota 
     @Query("SELECT COALESCE(SUM(v.kmPercorrida), 0) FROM Viagem v")
     Double sumTotalKm();
 

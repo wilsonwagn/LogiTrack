@@ -32,12 +32,14 @@ public class ViagemService {
 
     @Transactional
     public ViagemDTO create(ViagemDTO dto) {
+        validarDatas(dto);
         Viagem viagem = toEntity(dto);
         return toDTO(viagemRepository.save(viagem));
     }
 
     @Transactional
     public ViagemDTO update(Long id, ViagemDTO dto) {
+        validarDatas(dto);
         Viagem viagem = findOrThrow(id);
         Veiculo veiculo = findVeiculoOrThrow(dto.getVeiculoId());
 
@@ -58,6 +60,14 @@ public class ViagemService {
     }
 
     // ─── Helpers ────────────────────────────────────────────────────────────────
+
+    private void validarDatas(ViagemDTO dto) {
+        if (dto.getDataChegada() != null && dto.getDataSaida() != null) {
+            if (dto.getDataChegada().isBefore(dto.getDataSaida())) {
+                throw new IllegalArgumentException("A data de chegada não pode ser anterior à data de saída.");
+            }
+        }
+    }
 
     private Viagem findOrThrow(Long id) {
         return viagemRepository.findById(id)

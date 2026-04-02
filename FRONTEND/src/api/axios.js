@@ -5,8 +5,12 @@ const api = axios.create({
 })
 
 // Injeta o token em toda requisição autenticada
+// Toda vez que usarmos api.get('/veiculos') por exemplo, ele passa por aqui *antes* de ir pro Backend
 api.interceptors.request.use((config) => {
+  // 3️⃣ Pegamos o token que foi salvo no AuthContext (localStorage)
   const token = localStorage.getItem('logitrack_token')
+  
+  // 4️⃣ Colocamos o Token no "Cabeçalho (Header)" da requisição. Sem isso o Backend bloqueia
   if (token) config.headers.Authorization = `Bearer ${token}`
   return config
 })
