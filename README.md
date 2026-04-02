@@ -41,6 +41,7 @@ Acesse diretamente sem instalar nada:
 | Usuário | Senha |
 |---|---|
 | admin | admin123 |
+| wilson | wilson123 |
 
 ---
 
@@ -49,12 +50,22 @@ Acesse diretamente sem instalar nada:
 > Pré-requisito: Docker instalado
 
 ```bash
+# Recomendado — sobe banco, backend e frontend de uma vez:
+make up
+
+# Ou diretamente com Docker:
 docker-compose up --build
 ```
 
 - Frontend: http://localhost:3000
 - Backend: http://localhost:8080
-- Login: `admin` / `admin123`
+- Login: `admin` / `admin123` ou `wilson` / `wilson123`
+
+> O `Makefile` na raiz do projeto contém atalhos úteis:
+> - `make up` — sobe todos os containers
+> - `make logs` — exibe logs em tempo real
+> - `make db-seed` — recarrega dados iniciais
+> - `make down` — derruba os containers
 
 ---
 
@@ -63,6 +74,8 @@ docker-compose up --build
 **Backend**
 
 > Pré-requisito: Java 17, PostgreSQL rodando em `localhost:5432`
+
+> Login local: `admin` / `admin123` ou `wilson` / `wilson123`
 
 ```bash
 # Criar banco de dados
